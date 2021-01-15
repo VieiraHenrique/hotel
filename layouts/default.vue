@@ -33,6 +33,8 @@ export default {
 */ /* ****************** STYLES ********************* */
 
 <style lang="scss">
+$gray-light: #f4f2f2;
+
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600&display=swap');
 
 html {
@@ -56,5 +58,11 @@ body {
 }
 
 .wrapper {
+  max-width: 120rem;
+  margin: 5rem auto;
+  background: $gray-light;
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 0 2rem 6rem rgba($color: #000000, $alpha: 0.3);
 }
 </style>
