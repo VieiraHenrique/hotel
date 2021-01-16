@@ -14,7 +14,7 @@
           Our search engine powered by Artificial Intelligence gives you the
           right choice every time !
         </p>
-        <form>
+        <form @submit="searchHotels">
           <div class="form__layout">
             <div class="form__col-left">
               <p>
@@ -133,6 +133,15 @@ export default {
       hotels: null,
       inpPlace: 'recife',
     }
+  },
+
+  methods: {
+    searchHotels: async function (e) {
+      e.preventDefault()
+      const place = await getPlace(this.inpPlace)
+      const hotels = await getHotels(place)
+      this.hotels = hotels
+    },
   },
 
   mounted: async function () {

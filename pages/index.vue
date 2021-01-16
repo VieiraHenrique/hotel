@@ -27,12 +27,6 @@
 <script>
 export default {
   layout: 'login',
-  props: [],
-  components: {},
-  data() {
-    return {}
-  },
-  methods: {},
 }
 </script>
 
@@ -89,6 +83,7 @@ export default {
     }
 
     a {
+      margin: 0.5rem;
       background: #349af7;
       color: #fff;
       text-decoration: none;

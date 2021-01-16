@@ -2,6 +2,9 @@
 
 <template>
   <div class="hotel-card">
+    <div class="hotel-card-rating">
+      {{ rate }}
+    </div>
     <img :src="img" alt="hotel picture" />
     <div class="hotel-card-text">
       <h3>{{ name }}</h3>
@@ -29,7 +32,7 @@ export default {
 .hotel-card {
   border-radius: 1rem;
   background: #fff;
-
+  position: relative;
   color: #444;
 
   box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
@@ -42,12 +45,39 @@ export default {
     border-top-right-radius: 1rem;
   }
 
+  .hotel-card-rating {
+    position: absolute;
+    background: rgb(226, 7, 7);
+    color: #fff;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: -1.5rem;
+    left: -1rem;
+  }
+
   .hotel-card-text {
     padding: 3rem;
+    height: 20rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    h3 {
+      font-size: 2rem;
+    }
+
+    h4 {
+      color: #444;
+    }
   }
 
   a {
-    margin-top: 2rem;
+    margin-top: auto;
     display: inline-block;
     padding: 1rem 2rem;
     background: #349af7;
