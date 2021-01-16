@@ -14,34 +14,12 @@
 /* ****************** SCRIPT ********************* */
 
 <script>
-import axios from 'axios'
-
 export default {
-  props: ['name', 'id'],
+  props: ['name', 'location', 'rate', 'img'],
   data() {
-    return {
-      img: '',
-      title: '',
-      location: '',
-    }
+    return {}
   },
-  mounted() {
-    const options = {
-      method: 'GET',
-      url: 'https://hotels4.p.rapidapi.com/properties/get-hotel-photos',
-      params: { id: this.id },
-      headers: {
-        'x-rapidapi-key': '30f40ac386msh71348525a4a982ap195beajsnb3c226b235e2',
-        'x-rapidapi-host': 'hotels4.p.rapidapi.com',
-      },
-    }
-    axios.request(options).then((res) => {
-      console.log(res.data.hotelImages[0])
-      let str = res.data.hotelImages[0].baseUrl
-      str = str.slice(0, str.length - 11) + '.jpg'
-      this.img = str
-    })
-  },
+  mounted() {},
 }
 </script>
 

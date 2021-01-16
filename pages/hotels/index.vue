@@ -8,7 +8,49 @@
       <img src="~/assets/img/hotels/hotel3.jpg" alt="hotel picture" />
     </div>
     <section class="search-testimonials">
-      <Search />
+      <div class="hotels__search">
+        <h2>Search for hotels</h2>
+        <p>
+          Our search engine powered by Artificial Intelligence gives you the
+          right choice every time !
+        </p>
+        <form>
+          <div class="form__layout">
+            <div class="form__col-left">
+              <p>
+                <label for="city">City</label>
+                <br />
+                <input
+                  v-model="inpPlace"
+                  type="text"
+                  name="city"
+                  id="city"
+                  placeholder="Enter a city"
+                />
+              </p>
+              <p>
+                Number of adults
+                <br />
+                <input type="number" name="adults" id="adults" value="1" />
+              </p>
+            </div>
+            <div class="form__col-right">
+              <p>
+                From
+                <br />
+                <input type="date" name="from" id="from" />
+              </p>
+              <p>
+                To
+                <br />
+                <input type="date" name="to" id="to" />
+              </p>
+            </div>
+          </div>
+          <button>Let's go !</button>
+        </form>
+      </div>
+
       <Testimonials
         author="Billy James"
         date="dec 2020"
@@ -26,12 +68,13 @@
     <p class="results">Results:</p>
 
     <section class="hotels__grid">
-      <!-- FOR LOOP on the hotels response -->
       <Hotel-card
         v-for="hotel in hotels"
         :name="hotel.name"
-        :key="hotel.destinationId"
-        :id="hotel.destinationId"
+        :location="hotel.address.countryName"
+        :rate="hotel.guestReviews.rating"
+        :img="hotel.thumbnailUrl"
+        :key="hotel.id"
       />
     </section>
   </div>
@@ -45,31 +88,57 @@ import HotelCard from '../../components/HotelCard.vue'
 import Search from '../../components/Search.vue'
 import Testimonials from '../../components/Testimonials.vue'
 
-// Define options for Axios request
-const options = {
-  method: 'GET',
-  url: 'https://hotels4.p.rapidapi.com/locations/search',
-  params: { query: 'recife', locale: 'en_US' },
-  headers: {
-    'x-rapidapi-key': '30f40ac386msh71348525a4a982ap195beajsnb3c226b235e2',
-    'x-rapidapi-host': 'hotels4.p.rapidapi.com',
-  },
+const getPlace = async (myQuery) => {
+  const options = {
+    method: 'GET',
+    url: 'https://hotels4.p.rapidapi.com/locations/search',
+    params: { query: myQuery, locale: 'en_US' },
+    headers: {
+      'x-rapidapi-key': '30f40ac386msh71348525a4a982ap195beajsnb3c226b235e2',
+      'x-rapidapi-host': 'hotels4.p.rapidapi.com',
+    },
+  }
+  const res = await axios.request(options)
+  return res.data.suggestions[0].entities[0].destinationId
+}
+
+const getHotels = async (placeID) => {
+  const options = {
+    method: 'GET',
+    url: 'https://hotels4.p.rapidapi.com/properties/list',
+    params: {
+      destinationId: placeID,
+      pageNumber: '1',
+      checkIn: '2020-01-08',
+      checkOut: '2020-01-15',
+      pageSize: '6',
+      adults1: '1',
+      currency: 'EUR',
+      locale: 'en_US',
+      sortOrder: 'STAR_RATING_HIGHEST_FIRST',
+    },
+    headers: {
+      'x-rapidapi-key': '30f40ac386msh71348525a4a982ap195beajsnb3c226b235e2',
+      'x-rapidapi-host': 'hotels4.p.rapidapi.com',
+    },
+  }
+  const res = await axios.request(options)
+  return res.data.data.body.searchResults.results
 }
 
 export default {
   components: { Search, Testimonials, HotelCard },
   data() {
     return {
-      // Declare variable "hotels"
-      hotels: '',
+      hotels: null,
+      inpPlace: 'recife',
     }
   },
 
-  // Call API on load and save hotels array to the variable "hotels"
-  mounted() {
-    axios.request(options).then((res) => {
-      this.hotels = res.data.suggestions[1].entities
-    })
+  mounted: async function () {
+    const place = await getPlace(this.inpPlace)
+    const hotels = await getHotels(place)
+    this.hotels = hotels
   },
 }
 </script>
