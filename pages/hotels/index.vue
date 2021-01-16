@@ -7,10 +7,6 @@
       <img src="~/assets/img/hotels/hotel2.jpg" alt="hotel picture" />
       <img src="~/assets/img/hotels/hotel3.jpg" alt="hotel picture" />
     </div>
-
-    <!-- <div class="hotels__title">
-      <h2>Where are you gonna spend your next vacations ?</h2>
-    </div> -->
     <section class="search-testimonials">
       <Search />
       <Testimonials
@@ -26,6 +22,9 @@
         msg="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio temporibus eligendi veritatis vitae, repellendus eos."
       />
     </section>
+
+    <p class="results">Results:</p>
+
     <section class="hotels__grid">
       <Hotel-card />
       <Hotel-card />
@@ -37,16 +36,33 @@
 /* ****************** SCRIPT ********************* */
 
 <script>
+import axios from 'axios'
 import HotelCard from '../../components/HotelCard.vue'
 import Search from '../../components/Search.vue'
 import Testimonials from '../../components/Testimonials.vue'
+
+const options = {
+  method: 'GET',
+  url: 'https://hotels4.p.rapidapi.com/locations/search',
+  params: { query: 'recife', locale: 'en_US' },
+  headers: {
+    'x-rapidapi-key': '30f40ac386msh71348525a4a982ap195beajsnb3c226b235e2',
+    'x-rapidapi-host': 'hotels4.p.rapidapi.com',
+  },
+}
+
 export default {
   props: [],
   components: { Search, Testimonials, HotelCard },
-  data() {
+  asyncData() {
     return {}
   },
   methods: {},
+  mounted() {
+    axios
+      .request(options)
+      .then((res) => console.log(res.data.suggestions[1].entities))
+  },
 }
 </script>
 
@@ -71,43 +87,15 @@ export default {
   gap: 3rem;
 }
 
+.results {
+  margin-left: 3rem;
+}
+
 .hotels__grid {
   margin: 3rem;
   margin-bottom: 10rem;
   display: grid;
   gap: 3rem;
   grid-template-columns: 1fr 1fr 1fr;
-
-  .hotel-card {
-    border-radius: 1rem;
-    background: #fff;
-
-    color: #444;
-
-    box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
-
-    img {
-      width: 100%;
-      border-top-left-radius: 1rem;
-      border-top-right-radius: 1rem;
-    }
-
-    .hotel-card-text {
-      padding: 3rem;
-    }
-
-    a {
-      margin-top: 2rem;
-      display: inline-block;
-      padding: 1rem 2rem;
-      background: #349af7;
-      color: #fff;
-      text-decoration: none;
-
-      &:hover {
-        background: #6eb1f0;
-      }
-    }
-  }
 }
 </style>

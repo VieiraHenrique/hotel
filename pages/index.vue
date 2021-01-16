@@ -4,7 +4,7 @@
   <div class="login">
     <img class="login-cover" src="~/assets/img/beach.jpg" alt="login cover" />
     <div class="login-text">
-      <h2>FlowIQ - Easy booking</h2>
+      <h2>- Easy booking -</h2>
       <p class="login-powered">Powered By</p>
       <img src="~/assets/img/logoBlack.png" alt="" />
       <hr />
@@ -65,7 +65,7 @@ export default {
 
     h2 {
       font-family: 'Satisfy', serif;
-      font-size: 3rem;
+      font-size: 3.8rem;
     }
 
     p {

@@ -8,7 +8,7 @@
       /></nuxt-link>
     </div>
     <div class="header__title">
-      <h1>FlowIQ - Easy booking</h1>
+      <h1>- Easy booking -</h1>
     </div>
     <div class="header__nav">
       <div class="header__nav--bookmark">
@@ -62,7 +62,7 @@ export default {
     h1 {
       font-family: 'Satisfy', sans-serif;
       font-weight: 800;
-      font-size: 2.5rem;
+      font-size: 3.5rem;
       letter-spacing: 1.5px;
       color: #444;
       padding: 2.5rem;

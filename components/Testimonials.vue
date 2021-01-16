@@ -37,7 +37,7 @@ export default {
   padding: 3rem;
   border-radius: 1rem;
   width: 100%;
-  height: fit-content;
+  height: 32rem;
   position: relative;
 
   .quote {
