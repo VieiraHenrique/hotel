@@ -108,6 +108,7 @@ export default {
     button {
       border: none;
       outline: none;
+      font-size: 1.6rem;
       background: #349af7;
       color: #fff;
       padding: 1rem 2rem;

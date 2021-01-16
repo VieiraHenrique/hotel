@@ -1,9 +1,12 @@
 /* ****************** TEMPLATE ********************* */
 
 <template>
-  <div>
-    <div class="login_container">
-      <nuxt />
+  <div class="hotel-card">
+    <img src="~/assets/img/hotels/hotel3.jpg" alt="hotel picture" />
+    <div class="hotel-card-text">
+      <h3>Title of the Hotel</h3>
+      <h4>Paris - France</h4>
+      <a href="#" class="btn">Know more</a>
     </div>
   </div>
 </template>
@@ -23,13 +26,4 @@ export default {
 
 /* ****************** STYLES ********************* */
 
-<style lang="scss">
-.login_container {
-  background: #232323;
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-</style>
+<style lang="scss"></style>

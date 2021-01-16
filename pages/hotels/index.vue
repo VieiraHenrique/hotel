@@ -26,17 +26,23 @@
         msg="Lorem ipsum dolor sit amet consectetur, adipisicing elit. Distinctio temporibus eligendi veritatis vitae, repellendus eos."
       />
     </section>
+    <section class="hotels__grid">
+      <Hotel-card />
+      <Hotel-card />
+      <Hotel-card />
+    </section>
   </div>
 </template>
 
 /* ****************** SCRIPT ********************* */
 
 <script>
+import HotelCard from '../../components/HotelCard.vue'
 import Search from '../../components/Search.vue'
 import Testimonials from '../../components/Testimonials.vue'
 export default {
   props: [],
-  components: { Search, Testimonials },
+  components: { Search, Testimonials, HotelCard },
   data() {
     return {}
   },
@@ -63,5 +69,45 @@ export default {
   display: flex;
   align-items: flex-start;
   gap: 3rem;
+}
+
+.hotels__grid {
+  margin: 3rem;
+  margin-bottom: 10rem;
+  display: grid;
+  gap: 3rem;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  .hotel-card {
+    border-radius: 1rem;
+    background: #fff;
+
+    color: #444;
+
+    box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
+
+    img {
+      width: 100%;
+      border-top-left-radius: 1rem;
+      border-top-right-radius: 1rem;
+    }
+
+    .hotel-card-text {
+      padding: 3rem;
+    }
+
+    a {
+      margin-top: 2rem;
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: #349af7;
+      color: #fff;
+      text-decoration: none;
+
+      &:hover {
+        background: #6eb1f0;
+      }
+    }
+  }
 }
 </style>

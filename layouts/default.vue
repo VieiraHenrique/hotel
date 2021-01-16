@@ -40,6 +40,7 @@ export default {
 $gray-light: #f4f2f2;
 
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 
 html {
   font-size: 62.5%;
@@ -59,7 +60,6 @@ body {
   /* background: radial-gradient(#536369be, #1d2931c5),
     url(https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260); */
   /* background: radial-gradient(#346e97, #174261); */
-  background: #ecf6fc;
   background: #3276b6;
   background-size: cover;
   background-position: center;

@@ -3,20 +3,12 @@
 <template>
   <div class="header">
     <div class="header__logo">
-      <img src="~/assets/img/logo.png" alt="logo" />
+      <nuxt-link to="/"
+        ><img src="~/assets/img/logo.png" alt="logo"
+      /></nuxt-link>
     </div>
-    <div class="header__search">
-      <form action="#" id="search">
-        <input
-          id="searchInput"
-          type="text"
-          class="header__search--input"
-          placeholder="Search hotels"
-        />
-        <button class="header__search--button">
-          <img src="~/assets/img/fontawesome/search.png" alt="search" />
-        </button>
-      </form>
+    <div class="header__title">
+      <h1>FlowIQ - Easy booking</h1>
     </div>
     <div class="header__nav">
       <div class="header__nav--bookmark">
@@ -63,6 +55,17 @@ export default {
 
     img {
       width: 4rem;
+    }
+  }
+
+  &__title {
+    h1 {
+      font-family: 'Satisfy', sans-serif;
+      font-weight: 800;
+      font-size: 2.5rem;
+      letter-spacing: 1.5px;
+      color: #444;
+      padding: 2.5rem;
     }
   }
 

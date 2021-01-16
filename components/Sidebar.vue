@@ -10,13 +10,19 @@
         </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/flights">
+        <nuxt-link to="#">
           <img src="~/assets/img/fontawesome/plane-solid.png" alt="search" />
           <span>Flights</span>
         </nuxt-link>
       </li>
       <li>
-        <nuxt-link to="/about">
+        <nuxt-link to="#">
+          <img src="~/assets/img/fontawesome/car-side-solid.png" alt="search" />
+          <span>Cars</span>
+        </nuxt-link>
+      </li>
+      <li>
+        <nuxt-link to="#">
           <img
             src="~/assets/img/fontawesome/info-circle-solid.png"
             alt="search"
@@ -49,7 +55,8 @@ export default {
 
 <style lang="scss">
 .sidebar {
-  background: #454545;
+  background: #57636f;
+  background: #444;
   min-height: 50rem;
   display: flex;
   flex-direction: column;
@@ -63,7 +70,7 @@ export default {
 
   li {
     flex: 1;
-    text-align: center;
+    text-align: left;
 
     border-top: 1px solid #fff;
 
@@ -81,10 +88,11 @@ export default {
     text-decoration: none;
     color: #fff;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items: left;
+    justify-content: flex-start;
     font-weight: 400;
     img {
+      margin-left: 30%;
       margin-right: 1rem;
       width: 2rem;
     }
