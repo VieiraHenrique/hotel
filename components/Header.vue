@@ -91,6 +91,9 @@ export default {
           width: 2rem;
           cursor: pointer;
         }
+        &:focus {
+          outline: none;
+        }
       }
     }
   }

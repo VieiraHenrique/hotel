@@ -8,6 +8,10 @@
         <Sidebar />
         <nuxt />
       </div>
+      <div class="powered">
+        <span>Powered by</span><br />
+        <img src="~/assets/img/logoBlack.png" alt="" />
+      </div>
     </div>
   </div>
 </template>
@@ -52,17 +56,46 @@ html {
 body {
   font-family: 'Rubik', sans-serif;
   font-size: 1.6rem;
-  min-height: 100vh;
-  background: radial-gradient(#01c0ff, #174261);
+  /* background: radial-gradient(#536369be, #1d2931c5),
+    url(https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260); */
+  /* background: radial-gradient(#346e97, #174261); */
+  background: #ecf6fc;
+  background: #3276b6;
   background-size: cover;
+  background-position: center;
 }
 
 .wrapper {
+  position: relative;
   max-width: 120rem;
   margin: 5rem auto;
   background: $gray-light;
   overflow: hidden;
   border-radius: 1rem;
   box-shadow: 0 2rem 6rem rgba($color: #000000, $alpha: 0.3);
+}
+
+.powered {
+  position: absolute;
+  text-align: center;
+  right: 2rem;
+  bottom: 2rem;
+  font-size: 1.3rem;
+
+  img {
+    width: 15rem;
+  }
+}
+
+.content {
+  display: flex;
+}
+
+.sidebar {
+  flex: 0 0 18%;
+}
+
+.main {
+  flex: 1;
 }
 </style>

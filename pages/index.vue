@@ -1,13 +1,14 @@
 /* ****************** TEMPLATE ********************* */
 
 <template>
-  <h1>Hello World</h1>
+  <div>Login</div>
 </template>
 
 /* ****************** SCRIPT ********************* */
 
 <script>
 export default {
+  layout: 'login',
   props: [],
   components: {},
   data() {
