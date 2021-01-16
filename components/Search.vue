@@ -7,7 +7,7 @@
       Our search engine powered by Artificial Intelligence gives you the right
       choice every time !
     </p>
-    <form action="#">
+    <form>
       <div class="form__layout">
         <div class="form__col-left">
           <p>

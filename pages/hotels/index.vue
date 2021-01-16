@@ -26,9 +26,13 @@
     <p class="results">Results:</p>
 
     <section class="hotels__grid">
-      <Hotel-card />
-      <Hotel-card />
-      <Hotel-card />
+      <!-- FOR LOOP on the hotels response -->
+      <Hotel-card
+        v-for="hotel in hotels"
+        :name="hotel.name"
+        :key="hotel.destinationId"
+        :id="hotel.destinationId"
+      />
     </section>
   </div>
 </template>
@@ -41,6 +45,7 @@ import HotelCard from '../../components/HotelCard.vue'
 import Search from '../../components/Search.vue'
 import Testimonials from '../../components/Testimonials.vue'
 
+// Define options for Axios request
 const options = {
   method: 'GET',
   url: 'https://hotels4.p.rapidapi.com/locations/search',
@@ -52,16 +57,19 @@ const options = {
 }
 
 export default {
-  props: [],
   components: { Search, Testimonials, HotelCard },
-  asyncData() {
-    return {}
+  data() {
+    return {
+      // Declare variable "hotels"
+      hotels: '',
+    }
   },
-  methods: {},
+
+  // Call API on load and save hotels array to the variable "hotels"
   mounted() {
-    axios
-      .request(options)
-      .then((res) => console.log(res.data.suggestions[1].entities))
+    axios.request(options).then((res) => {
+      this.hotels = res.data.suggestions[1].entities
+    })
   },
 }
 </script>

@@ -2,9 +2,9 @@
 
 <template>
   <div class="hotel-card">
-    <img src="~/assets/img/hotels/hotel3.jpg" alt="hotel picture" />
+    <img :src="img" alt="hotel picture" />
     <div class="hotel-card-text">
-      <h3>{{ title }}</h3>
+      <h3>{{ name }}</h3>
       <h4>{{ location }}</h4>
       <a href="#" class="btn">Explore</a>
     </div>
@@ -14,16 +14,34 @@
 /* ****************** SCRIPT ********************* */
 
 <script>
+import axios from 'axios'
+
 export default {
-  props: [],
-  components: {},
+  props: ['name', 'id'],
   data() {
     return {
-      title: 'Title of the Hotel',
-      location: 'Brussels - Belgium',
+      img: '',
+      title: '',
+      location: '',
     }
   },
-  methods: {},
+  mounted() {
+    const options = {
+      method: 'GET',
+      url: 'https://hotels4.p.rapidapi.com/properties/get-hotel-photos',
+      params: { id: this.id },
+      headers: {
+        'x-rapidapi-key': '30f40ac386msh71348525a4a982ap195beajsnb3c226b235e2',
+        'x-rapidapi-host': 'hotels4.p.rapidapi.com',
+      },
+    }
+    axios.request(options).then((res) => {
+      console.log(res.data.hotelImages[0])
+      let str = res.data.hotelImages[0].baseUrl
+      str = str.slice(0, str.length - 11) + '.jpg'
+      this.img = str
+    })
+  },
 }
 </script>
 
@@ -40,6 +58,8 @@ export default {
 
   img {
     width: 100%;
+    height: 20rem;
+    object-fit: cover;
     border-top-left-radius: 1rem;
     border-top-right-radius: 1rem;
   }

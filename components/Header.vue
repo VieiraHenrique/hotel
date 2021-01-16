@@ -61,7 +61,7 @@ export default {
   &__title {
     h1 {
       font-family: 'Satisfy', sans-serif;
-      font-weight: 800;
+      font-weight: 400;
       font-size: 3.5rem;
       letter-spacing: 1.5px;
       color: #444;
