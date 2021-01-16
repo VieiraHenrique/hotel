@@ -3,7 +3,7 @@
 <template>
   <div class="header">
     <div class="header__logo">
-      <img src="~/assets/img/smallLogo.png" alt="logo" />
+      <img src="~/assets/img/logo.png" alt="logo" />
     </div>
     <div class="header__search">
       <form action="#" id="search">
@@ -14,16 +14,16 @@
           placeholder="Search hotels"
         />
         <button class="header__search--button">
-          <img src="~/assets/img/fontawesome/search-solid.png" alt="search" />
+          <img src="~/assets/img/fontawesome/search.png" alt="search" />
         </button>
       </form>
     </div>
     <div class="header__nav">
       <div class="header__nav--bookmark">
-        <img src="~/assets/img/fontawesome/bookmark-solid.png" alt="bookmark" />
+        <img src="~/assets/img/fontawesome/bookmark.png" alt="bookmark" />
       </div>
       <div class="header__nav--notifications">
-        <img src="~/assets/img/fontawesome/comments-solid.png" alt="search" />
+        <img src="~/assets/img/fontawesome/comments.png" alt="search" />
       </div>
       <div class="header__nav--user">
         <img src="~/assets/img/henrique.jpg" alt="user-image" />
