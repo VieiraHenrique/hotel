@@ -23,7 +23,14 @@
           <p>
             Number of adults
             <br />
-            <input type="number" name="adults" id="adults" value="1" />
+            <input
+              type="number"
+              name="adults"
+              id="adults"
+              value="1"
+              min="1"
+              max="2"
+            />
           </p>
         </div>
         <div class="form__col-right">

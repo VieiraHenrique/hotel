@@ -3,28 +3,52 @@
 <template>
   <div class="specific-wrapper">
     <nuxt-link to="/hotels" class="btn">Get back to main page</nuxt-link>
-    <div class="specific-hotel">
-      <h2>{{ hotel.propertyDescription.name }}</h2>
-      <h4>
-        {{ hotel.propertyDescription.address.cityName }} -
-        {{ hotel.propertyDescription.address.countryName }}
-      </h4>
 
-      <img
-        src="~/assets/img/fontawesome/star.png"
-        alt="star"
-        class="stars"
-        v-for="(n, i) in hotel.propertyDescription.starRating"
-      />
+    <div class="specific-row">
+      <div class="specific-hotel">
+        <h2>{{ hotel.propertyDescription.name }}</h2>
+        <h4>
+          {{ hotel.propertyDescription.address.cityName }} -
+          {{ hotel.propertyDescription.address.countryName }}
+        </h4>
 
-      <ul>
-        <li>{{ hotel.propertyDescription.freebies[0] }}</li>
-      </ul>
-      <br />
-      <a class="btn">See all amenities</a>
+        <img
+          src="~/assets/img/fontawesome/star.png"
+          alt="star"
+          class="stars"
+          v-for="(n, i) in hotel.propertyDescription.starRating"
+        />
+
+        <ul class="nobullet">
+          <li>{{ hotel.propertyDescription.freebies[0] }}</li>
+        </ul>
+        <br />
+        <ul v-for="amen in hotel.amenities[0].listItems[0].listItems">
+          <li>{{ amen }}</li>
+        </ul>
+        <ul v-for="amen in hotel.amenities[0].listItems[1].listItems">
+          <li>{{ amen }}</li>
+        </ul>
+        <!-- <ul v-for="amen in hotel.amenities[0].listItems[2].listItems">
+          <li>{{ amen }}</li>
+        </ul> -->
+      </div>
+      <div class="specific-price">
+        <h2>
+          <span>
+            {{ hotel.propertyDescription.featuredPrice.currentPrice.formatted }}
+          </span>
+          per night
+        </h2>
+      </div>
     </div>
+
     <div class="specific-pictures">
-      <img v-for="pic in correctPics" :src="pic" alt="picture" />
+      <!-- <h2>{{ loadingPic }}</h2> -->
+      <!-- <img v-for="pic in correctPics" :src="pic" alt="picture" /> -->
+      <a v-for="(n, i) in 8" :href="correctPics[i]" target="blank">
+        <img :src="correctPics[i]" alt="picture" />
+      </a>
     </div>
   </div>
 </template>
@@ -73,13 +97,13 @@ export default {
   props: [],
   components: {},
   data() {
-    return {}
+    return {
+      loadingPic: 'Loading pictures...',
+    }
   },
   async asyncData(context) {
     const hotel = await getOneHotel(context.params.id)
     const pics = await getPics(context.params.id)
-    console.log(pics)
-    console.log(hotel)
     const correctPics = pics.map((elem) => {
       let str = elem.baseUrl
       str = str.slice(0, str.length - 11) + '.jpg'
@@ -130,10 +154,18 @@ export default {
       margin-bottom: 2rem;
     }
 
+    .nobullet {
+      list-style: none;
+      li {
+        color: #000;
+      }
+    }
+
     ul {
-      list-style-type: none;
+      list-style-type: bullet;
 
       li {
+        margin-bottom: 0.5rem;
         color: #aaa;
       }
     }
@@ -144,12 +176,39 @@ export default {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
+    margin-bottom: 6rem;
 
     img {
       width: 100%;
       height: 25rem;
       object-fit: cover;
       cursor: pointer;
+    }
+  }
+
+  .specific-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 3rem;
+  }
+
+  .specific-price {
+    background: #fff;
+    margin: 3rem 0;
+    padding: 3rem;
+    width: 50%;
+    box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
+
+    h2 {
+      font-size: 2rem;
+
+      span {
+        background: red;
+        color: #fff;
+        padding: 1rem 2rem;
+        margin-right: 1rem;
+      }
     }
   }
 }

@@ -1,7 +1,7 @@
 /* ****************** TEMPLATE ********************* */
 
 <template>
-  <div class="hotel-card">
+  <nuxt-link :to="'/hotels/' + id" class="hotel-card">
     <div class="hotel-card-rating">
       {{ rate }}
     </div>
@@ -10,9 +10,9 @@
       <h3>{{ name }}</h3>
       <h4>{{ city }} - {{ country }}</h4>
 
-      <nuxt-link :to="'/hotels/' + id" class="btn">Explore</nuxt-link>
+      <a href="#" class="btn">Explore</a>
     </div>
-  </div>
+  </nuxt-link>
 </template>
 
 /* ****************** SCRIPT ********************* */

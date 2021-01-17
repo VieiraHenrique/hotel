@@ -38,12 +38,22 @@
               <p>
                 From
                 <br />
-                <input type="date" name="from" id="from" />
+                <input
+                  type="date"
+                  name="checkIn"
+                  id="checkIn"
+                  v-model="checkIn"
+                />
               </p>
               <p>
                 To
                 <br />
-                <input type="date" name="to" id="to" />
+                <input
+                  type="date"
+                  name="checkOut"
+                  id="checkOut"
+                  v-model="checkOut"
+                />
               </p>
             </div>
           </div>
@@ -65,7 +75,7 @@
       />
     </section>
 
-    <p class="results">Results:</p>
+    <p class="results">{{ searchResults }}</p>
 
     <section class="hotels__grid">
       <Hotel-card
@@ -113,7 +123,7 @@ const getHotels = async (placeID) => {
       pageNumber: '1',
       checkIn: '2020-01-08',
       checkOut: '2020-01-15',
-      pageSize: '6',
+      pageSize: '9',
       adults1: '1',
       currency: 'EUR',
       locale: 'en_US',
@@ -132,27 +142,27 @@ export default {
   components: { Search, Testimonials, HotelCard },
   data() {
     return {
-      hotels: null,
-      inpPlace: 'recife',
+      hotels: '',
+      inpPlace: '',
+      checkIn: '',
+      checkOut: '',
+      searchResults: '',
     }
   },
 
   methods: {
     searchHotels: async function (e) {
       e.preventDefault()
+      this.hotels = ''
+      this.searchResults = 'Searching... Please wait'
       const place = await getPlace(this.inpPlace)
       const hotels = await getHotels(place)
+      this.searchResults = 'Results:'
       this.hotels = hotels
     },
   },
 
   asyncData() {},
-
-  mounted: async function () {
-    const place = await getPlace(this.inpPlace)
-    const hotels = await getHotels(place)
-    this.hotels = hotels
-  },
 }
 </script>
 
@@ -178,7 +188,9 @@ export default {
 }
 
 .results {
-  margin-left: 3rem;
+  font-weight: 400;
+  font-size: 1.7rem;
+  text-align: center;
 }
 
 .hotels__grid {
