@@ -71,10 +71,12 @@
       <Hotel-card
         v-for="hotel in hotels"
         :name="hotel.name"
-        :location="hotel.address.countryName"
+        :country="hotel.address.countryName"
+        :city="hotel.address.locality"
         :rate="hotel.guestReviews.rating"
         :img="hotel.thumbnailUrl"
         :key="hotel.id"
+        :id="hotel.id"
       />
     </section>
   </div>
@@ -143,6 +145,8 @@ export default {
       this.hotels = hotels
     },
   },
+
+  asyncData() {},
 
   mounted: async function () {
     const place = await getPlace(this.inpPlace)

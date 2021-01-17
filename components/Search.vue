@@ -115,6 +115,10 @@ export default {
       box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
       margin-top: 2rem;
       cursor: pointer;
+
+      &:hover {
+        background: #61adf5;
+      }
     }
   }
 }

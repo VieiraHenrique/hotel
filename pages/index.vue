@@ -13,7 +13,7 @@
       <p>Continue as Henrique ?</p>
 
       <div class="login-btns">
-        <nuxt-link to="/hotels"> Yes. Take me in! </nuxt-link>
+        <nuxt-link to="/hotels"> Yes. Take me in ! </nuxt-link>
         <nuxt-link to="#" class="orange"> I am not Henrique</nuxt-link>
       </div>
       <br />

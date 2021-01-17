@@ -12,10 +12,10 @@
     </div>
     <div class="header__nav">
       <div class="header__nav--bookmark">
-        <img src="~/assets/img/fontawesome/bookmark.png" alt="bookmark" />
+        <img src="~/assets/img/fontawesome/bookmark-gray.png" alt="bookmark" />
       </div>
       <div class="header__nav--notifications">
-        <img src="~/assets/img/fontawesome/comments.png" alt="search" />
+        <img src="~/assets/img/fontawesome/comments-gray.png" alt="comments" />
       </div>
       <div class="header__nav--user">
         <img src="~/assets/img/henrique.jpg" alt="user-image" />

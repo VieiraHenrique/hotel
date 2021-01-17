@@ -42,6 +42,15 @@ $gray-light: #f4f2f2;
 @import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
 
+// VARIABLES
+
+$main-blue: #349af7;
+$sidebar: #444;
+$bg: #349af7;
+$rating: #000;
+
+// CSS
+
 html {
   font-size: 62.5%;
   scroll-behavior: smooth;
@@ -60,7 +69,9 @@ body {
   /* background: radial-gradient(#536369be, #1d2931c5),
     url(https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260); */
   /* background: radial-gradient(#346e97, #174261); */
-  background: #3276b6;
+  background: #349af7;
+  background: #eaeaea;
+  /* background: #444; */
   background-size: cover;
   background-position: center;
 }
@@ -72,7 +83,7 @@ body {
   background: $gray-light;
   overflow: hidden;
   border-radius: 1rem;
-  box-shadow: 0 2rem 6rem rgba($color: #000000, $alpha: 0.3);
+  box-shadow: 0 1rem 2rem rgba($color: #000000, $alpha: 0.3);
 }
 
 .powered {

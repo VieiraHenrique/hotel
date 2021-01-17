@@ -8,8 +8,9 @@
     <img :src="img" alt="hotel picture" />
     <div class="hotel-card-text">
       <h3>{{ name }}</h3>
-      <h4>{{ location }}</h4>
-      <a href="#" class="btn">Explore</a>
+      <h4>{{ city }} - {{ country }}</h4>
+
+      <nuxt-link :to="'/hotels/' + id" class="btn">Explore</nuxt-link>
     </div>
   </div>
 </template>
@@ -18,7 +19,7 @@
 
 <script>
 export default {
-  props: ['name', 'location', 'rate', 'img'],
+  props: ['name', 'country', 'rate', 'img', 'city', 'id'],
   data() {
     return {}
   },
@@ -47,7 +48,7 @@ export default {
 
   .hotel-card-rating {
     position: absolute;
-    background: rgb(226, 7, 7);
+    background: #444;
     color: #fff;
     width: 5rem;
     height: 5rem;
@@ -69,6 +70,7 @@ export default {
 
     h3 {
       font-size: 2rem;
+      font-weight: 800;
     }
 
     h4 {
@@ -81,11 +83,13 @@ export default {
     display: inline-block;
     padding: 1rem 2rem;
     background: #349af7;
+    background: #c7c0ba;
     color: #fff;
     text-decoration: none;
+    box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
 
     &:hover {
-      background: #6eb1f0;
+      background: #349af7;
     }
   }
 }
