@@ -48,7 +48,8 @@
           Total nights : <span>{{ totalDays }}</span>
         </p>
         <p>
-          Total price : <span>{{ totalPrice }} € VAT included</span>
+          Total price : <span>{{ totalPrice }} € </span
+          ><span class="vat">VAT included</span>
         </p>
       </div>
     </div>
@@ -118,7 +119,7 @@ function datediff(first, second) {
   console.log(a);
 
   let days = Math.round((b - a) / (1000 * 60 * 60 * 24));
-  localStorage.days = days;
+
   return days;
 }
 
@@ -138,6 +139,7 @@ export default {
   async asyncData(context) {
     const hotel = await getOneHotel(context.params.id);
     console.log(hotel);
+    localStorage.days = datediff(localStorage.checkIn, localStorage.checkOut);
     localStorage.price =
       hotel.propertyDescription.featuredPrice.currentPrice.plain;
     localStorage.totalPrice = localStorage.days * localStorage.price;
@@ -241,24 +243,29 @@ export default {
     box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
 
     h2 {
-      font-size: 2rem;
+      font-size: 1.6rem;
 
       span {
         background: rgb(214, 39, 39);
         color: #fff;
         padding: 1rem 2rem;
-        margin-right: 1rem;
+        margin-right: 0.5rem;
         display: inline-block;
+        font-size: 2rem;
       }
     }
 
     p {
       margin-top: 1rem;
-      color: #aaa;
+      color: #666;
 
       span {
-        font-size: 2rem;
+        font-size: 1.8rem;
         color: #000;
+      }
+
+      .vat {
+        font-size: 1.4rem;
       }
     }
   }

@@ -119,8 +119,12 @@ const getPlace = async (myQuery) => {
       'x-rapidapi-host': 'hotels4.p.rapidapi.com',
     },
   };
-  const res = await axios.request(options);
-  return res.data.suggestions[0].entities[0].destinationId;
+  try {
+    const res = await axios.request(options);
+    return res.data.suggestions[0].entities[0].destinationId;
+  } catch (err) {
+    alert('Error fetching. Please, refresh the page');
+  }
 };
 
 const getHotels = async (placeID) => {
@@ -130,8 +134,8 @@ const getHotels = async (placeID) => {
     params: {
       destinationId: placeID,
       pageNumber: '1',
-      checkIn: '2020-01-08',
-      checkOut: '2020-01-15',
+      checkIn: localStorage.checkIn,
+      checkOut: localStorage.checkOut,
       pageSize: '9',
       adults1: '1',
       currency: 'EUR',
@@ -143,8 +147,13 @@ const getHotels = async (placeID) => {
       'x-rapidapi-host': 'hotels4.p.rapidapi.com',
     },
   };
-  const res = await axios.request(options);
-  return res.data.data.body.searchResults.results;
+
+  try {
+    const res = await axios.request(options);
+    return res.data.data.body.searchResults.results;
+  } catch (err) {
+    alert('error fetching');
+  }
 };
 
 export default {
