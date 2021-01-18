@@ -1,70 +1,104 @@
 /* ****************** TEMPLATE ********************* */
 
 <template>
-  <div class="specific-wrapper">
-    <nuxt-link to="/hotels" class="btn">Get back to main page</nuxt-link>
+  <div>
+    <div class="specific-wrapper">
+      <nuxt-link to="/hotels" class="btn">Get back to main page</nuxt-link>
 
-    <div class="specific-row">
-      <div class="specific-hotel">
-        <h2>{{ hotel.propertyDescription.name }}</h2>
-        <h4>
-          {{ hotel.propertyDescription.address.cityName }} -
-          {{ hotel.propertyDescription.address.countryName }}
-        </h4>
+      <div class="specific-row">
+        <div class="specific-hotel">
+          <h2>{{ hotel.propertyDescription.name }}</h2>
+          <h4>
+            {{ hotel.propertyDescription.address.cityName }} -
+            {{ hotel.propertyDescription.address.countryName }}
+          </h4>
 
-        <img
-          src="~/assets/img/fontawesome/star.png"
-          alt="star"
-          class="stars"
-          :key="hotel.id"
-          v-for="(n, i) in hotel.propertyDescription.starRating"
-        />
+          <img
+            src="~/assets/img/fontawesome/star.png"
+            alt="star"
+            class="stars"
+            :key="hotel.id"
+            v-for="(n, i) in hotel.propertyDescription.starRating"
+          />
 
-        <ul class="nobullet">
-          <li>{{ hotel.propertyDescription.freebies[0] }}</li>
-        </ul>
-        <br />
-        <ul v-for="amen in hotel.amenities[0].listItems[0].listItems">
-          <li>{{ amen }}</li>
-        </ul>
-        <ul v-for="amen in hotel.amenities[0].listItems[1].listItems">
-          <li>{{ amen }}</li>
-        </ul>
-        <!-- <ul v-for="amen in hotel.amenities[0].listItems[2].listItems">
+          <ul class="nobullet">
+            <li>{{ hotel.propertyDescription.freebies[0] }}</li>
+          </ul>
+          <br />
+          <ul v-for="amen in hotel.amenities[0].listItems[0].listItems">
+            <li>{{ amen }}</li>
+          </ul>
+          <ul v-for="amen in hotel.amenities[0].listItems[1].listItems">
+            <li>{{ amen }}</li>
+          </ul>
+          <!-- <ul v-for="amen in hotel.amenities[0].listItems[2].listItems">
           <li>{{ amen }}</li>
         </ul> -->
+        </div>
+        <div class="specific-price">
+          <h2>
+            <span>
+              {{
+                hotel.propertyDescription.featuredPrice.currentPrice.formatted
+              }}
+            </span>
+            per night
+          </h2>
+          <p>
+            From: <span> {{ checkIn }} </span> to: <span> {{ checkOut }} </span>
+          </p>
+          <p>
+            Total nights : <span>{{ totalDays }}</span>
+          </p>
+          <p>
+            Total price : <span>{{ totalPrice }} € </span
+            ><span class="vat">VAT included</span>
+          </p>
+          <p class="book" @click="toggleModal = !toggleModal">Book now</p>
+        </div>
       </div>
-      <div class="specific-price">
-        <h2>
-          <span>
-            {{ hotel.propertyDescription.featuredPrice.currentPrice.formatted }}
-          </span>
-          per night
-        </h2>
-        <p>
-          From: <span> {{ checkIn }} </span> to: <span> {{ checkOut }} </span>
-        </p>
-        <p>
-          Total nights : <span>{{ totalDays }}</span>
-        </p>
-        <p>
-          Total price : <span>{{ totalPrice }} € </span
-          ><span class="vat">VAT included</span>
-        </p>
+
+      <div class="specific-pictures">
+        <!-- <h2>{{ loadingPic }}</h2> -->
+        <!-- <img v-for="pic in correctPics" :src="pic" alt="picture" /> -->
+        <a
+          v-for="(n, i) in 8"
+          :href="correctPics[i]"
+          :key="correctPics[i]"
+          target="blank"
+        >
+          <img :src="correctPics[i]" alt="picture" />
+        </a>
       </div>
     </div>
+    <div v-if="toggleModal" class="modalBG">
+      <div class="modal">
+        <div class="modal-title">
+          <h2>Great, Henrique ! Just to confirm...</h2>
+          <p>Pay with registered PayPal account</p>
+        </div>
 
-    <div class="specific-pictures">
-      <!-- <h2>{{ loadingPic }}</h2> -->
-      <!-- <img v-for="pic in correctPics" :src="pic" alt="picture" /> -->
-      <a
-        v-for="(n, i) in 8"
-        :href="correctPics[i]"
-        :key="correctPics[i]"
-        target="blank"
-      >
-        <img :src="correctPics[i]" alt="picture" />
-      </a>
+        <div class="modal-row">
+          <img src="~/assets/img/paypal.png" alt="" />
+
+          <div class="modal-recap">
+            <p>
+              From: <span> {{ checkIn }} </span> to:
+              <span> {{ checkOut }} </span>
+            </p>
+            <p>
+              Total nights : <span>{{ totalDays }}</span>
+            </p>
+            <p class="totalPrice">
+              Total price : <span class="totalPrice">{{ totalPrice }} € </span
+              ><span class="vat">VAT included</span>
+            </p>
+          </div>
+        </div>
+
+        <a href="#" class="btn" @click="toggleModal = !toggleModal">Cancel</a>
+        <a href="#" class="btn red">Proceed</a>
+      </div>
     </div>
   </div>
 </template>
@@ -134,6 +168,7 @@ export default {
       totalDays: datediff(localStorage.checkIn, localStorage.checkOut),
       adults: localStorage.adults,
       totalPrice: localStorage.totalPrice,
+      toggleModal: false,
     };
   },
   async asyncData(context) {
@@ -218,7 +253,7 @@ export default {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 3rem;
-    margin-bottom: 6rem;
+    margin-bottom: 10rem;
 
     img {
       width: 100%;
@@ -246,7 +281,7 @@ export default {
       font-size: 1.6rem;
 
       span {
-        background: rgb(214, 39, 39);
+        background: #349af7;
         color: #fff;
         padding: 1rem 2rem;
         margin-right: 0.5rem;
@@ -267,6 +302,68 @@ export default {
       .vat {
         font-size: 1.4rem;
       }
+    }
+    .book {
+      background: rgb(214, 39, 39);
+      color: #fff;
+      padding: 2rem 2rem;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 2rem;
+    }
+  }
+}
+
+.modalBG {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba($color: #000000, $alpha: 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .modal {
+    background: #f4f2f2;
+    box-shadow: 0 2px 4px rgba($color: #000000, $alpha: 0.7);
+    padding: 3rem;
+    width: 60rem;
+    border-radius: 0.5rem;
+
+    img {
+      width: 7rem;
+    }
+
+    .btn {
+      background: #349af7;
+      color: #fff;
+      padding: 1rem 2rem;
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    .red {
+      background: rgb(214, 39, 39);
+    }
+
+    p {
+      margin: 2rem 0;
+    }
+
+    .modal-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+
+    .totalPrice {
+      font-weight: 800;
+    }
+
+    .vat {
+      font-size: 1.3rem;
     }
   }
 }
