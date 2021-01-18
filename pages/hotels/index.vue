@@ -84,6 +84,8 @@
     </section>
 
     <p class="results">{{ searchResults }}</p>
+    <p class="error">{{ error2 }}</p>
+    <p class="error">{{ error }}</p>
 
     <section class="hotels__grid">
       <Hotel-card
@@ -109,23 +111,7 @@ import HotelCard from '../../components/HotelCard.vue';
 import Search from '../../components/Search.vue';
 import Testimonials from '../../components/Testimonials.vue';
 
-const getPlace = async (myQuery) => {
-  const options = {
-    method: 'GET',
-    url: 'https://hotels4.p.rapidapi.com/locations/search',
-    params: { query: myQuery, locale: 'en_US' },
-    headers: {
-      'x-rapidapi-key': '30f40ac386msh71348525a4a982ap195beajsnb3c226b235e2',
-      'x-rapidapi-host': 'hotels4.p.rapidapi.com',
-    },
-  };
-  try {
-    const res = await axios.request(options);
-    return res.data.suggestions[0].entities[0].destinationId;
-  } catch (err) {
-    alert('Error fetching. Please, refresh the page');
-  }
-};
+const getPlace = async (myQuery) => {};
 
 const getHotels = async (placeID) => {
   const options = {
@@ -151,9 +137,7 @@ const getHotels = async (placeID) => {
   try {
     const res = await axios.request(options);
     return res.data.data.body.searchResults.results;
-  } catch (err) {
-    alert('error fetching');
-  }
+  } catch (err) {}
 };
 
 export default {
@@ -166,6 +150,8 @@ export default {
       checkOut: '',
       adults: 1,
       searchResults: '',
+      error: '',
+      error2: '',
     };
   },
   watch: {
@@ -197,20 +183,48 @@ export default {
     }
   },
   methods: {
+    getPlace: async function (myQuery) {
+      const options = {
+        method: 'GET',
+        url: 'https://hotels4.p.rapidapi.com/locations/search',
+        params: { query: myQuery, locale: 'en_US' },
+        headers: {
+          'x-rapidapi-key':
+            '30f40ac386msh71348525a4a982ap195beajsnb3c226b235e2',
+          'x-rapidapi-host': 'hotels4.p.rapidapi.com',
+        },
+      };
+      try {
+        const res = await axios.request(options);
+        return res.data.suggestions[0].entities[0].destinationId;
+      } catch (err) {
+        this.error =
+          'Error retrieving information. Make sure the city exists and is written in English';
+      }
+    },
     searchHotels: async function (e) {
       e.preventDefault();
+
       this.hotels = '';
+      this.error = '';
+      this.error2 = '';
+      if (!localStorage.city) {
+        this.error2 = 'Please insert a city';
+        return;
+      }
+      if (!localStorage.checkIn || !localStorage.checkOut) {
+        this.error = 'Please insert a date for your query';
+        return;
+      }
       this.searchResults = 'Searching... Please wait';
-      const place = await getPlace(this.inpPlace);
+      const place = await this.getPlace(localStorage.city);
       const hotels = await getHotels(place);
-      this.searchResults = `Results for "${this.inpPlace}":`;
+      this.searchResults = `Results for "${localStorage.city}":`;
       this.hotels = hotels;
       console.log(this.hotels);
       console.log(this.hotels[0].ratePlan.price.current);
     },
   },
-
-  asyncData() {},
 };
 </script>
 
@@ -247,5 +261,11 @@ export default {
   display: grid;
   gap: 3rem;
   grid-template-columns: 1fr 1fr 1fr;
+}
+
+.error {
+  color: red;
+  text-align: center;
+  font-size: 1.8rem;
 }
 </style>
