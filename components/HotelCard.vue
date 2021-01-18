@@ -10,7 +10,10 @@
       <h3>{{ name }}</h3>
       <h4>{{ city }} - {{ country }}</h4>
 
-      <a href="#" class="btn">Explore</a>
+      <div class="hotel-card-price-explore">
+        <!-- <p>{{ hotel.ratePlan.price.current }}</p> -->
+        <a href="#" class="btn">Explore</a>
+      </div>
     </div>
   </nuxt-link>
 </template>
@@ -19,18 +22,19 @@
 
 <script>
 export default {
-  props: ['name', 'country', 'rate', 'img', 'city', 'id'],
+  props: ['name', 'country', 'rate', 'img', 'city', 'id', 'hotel'],
   data() {
-    return {}
+    return {};
   },
   mounted() {},
-}
+};
 </script>
 
 /* ****************** STYLES ********************* */
 
 <style lang="scss">
 .hotel-card {
+  text-decoration: none;
   border-radius: 1rem;
   background: #fff;
   position: relative;
@@ -90,6 +94,19 @@ export default {
 
     &:hover {
       background: #349af7;
+    }
+  }
+
+  .hotel-card-price-explore {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+
+    p {
+      background: red;
+      padding: 1rem 2rem;
+      color: #fff;
     }
   }
 }

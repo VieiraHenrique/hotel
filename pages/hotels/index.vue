@@ -31,7 +31,15 @@
               <p>
                 Number of adults
                 <br />
-                <input type="number" name="adults" id="adults" value="1" />
+                <input
+                  type="number"
+                  name="adults"
+                  id="adults"
+                  value="1"
+                  min="1"
+                  max="2"
+                  v-model="adults"
+                />
               </p>
             </div>
             <div class="form__col-right">
@@ -80,6 +88,7 @@
     <section class="hotels__grid">
       <Hotel-card
         v-for="hotel in hotels"
+        :hotel="hotel"
         :name="hotel.name"
         :country="hotel.address.countryName"
         :city="hotel.address.locality"
@@ -95,10 +104,10 @@
 /* ****************** SCRIPT ********************* */
 
 <script>
-import axios from 'axios'
-import HotelCard from '../../components/HotelCard.vue'
-import Search from '../../components/Search.vue'
-import Testimonials from '../../components/Testimonials.vue'
+import axios from 'axios';
+import HotelCard from '../../components/HotelCard.vue';
+import Search from '../../components/Search.vue';
+import Testimonials from '../../components/Testimonials.vue';
 
 const getPlace = async (myQuery) => {
   const options = {
@@ -109,10 +118,10 @@ const getPlace = async (myQuery) => {
       'x-rapidapi-key': '30f40ac386msh71348525a4a982ap195beajsnb3c226b235e2',
       'x-rapidapi-host': 'hotels4.p.rapidapi.com',
     },
-  }
-  const res = await axios.request(options)
-  return res.data.suggestions[0].entities[0].destinationId
-}
+  };
+  const res = await axios.request(options);
+  return res.data.suggestions[0].entities[0].destinationId;
+};
 
 const getHotels = async (placeID) => {
   const options = {
@@ -133,10 +142,10 @@ const getHotels = async (placeID) => {
       'x-rapidapi-key': '30f40ac386msh71348525a4a982ap195beajsnb3c226b235e2',
       'x-rapidapi-host': 'hotels4.p.rapidapi.com',
     },
-  }
-  const res = await axios.request(options)
-  return res.data.data.body.searchResults.results
-}
+  };
+  const res = await axios.request(options);
+  return res.data.data.body.searchResults.results;
+};
 
 export default {
   components: { Search, Testimonials, HotelCard },
@@ -146,24 +155,54 @@ export default {
       inpPlace: '',
       checkIn: '',
       checkOut: '',
+      adults: 1,
       searchResults: '',
+    };
+  },
+  watch: {
+    inpPlace(inpPlace) {
+      localStorage.city = inpPlace;
+    },
+    checkIn(checkIn) {
+      localStorage.checkIn = checkIn;
+    },
+    checkOut(checkOut) {
+      localStorage.checkOut = checkOut;
+    },
+    adults(adults) {
+      localStorage.adults = adults;
+    },
+  },
+  mounted() {
+    if (localStorage.city) {
+      this.inpPlace = localStorage.city;
+    }
+    if (localStorage.checkIn) {
+      this.checkIn = localStorage.checkIn;
+    }
+    if (localStorage.checkOut) {
+      this.checkOut = localStorage.checkOut;
+    }
+    if (localStorage.adults) {
+      this.adults = localStorage.adults;
     }
   },
-
   methods: {
     searchHotels: async function (e) {
-      e.preventDefault()
-      this.hotels = ''
-      this.searchResults = 'Searching... Please wait'
-      const place = await getPlace(this.inpPlace)
-      const hotels = await getHotels(place)
-      this.searchResults = 'Results:'
-      this.hotels = hotels
+      e.preventDefault();
+      this.hotels = '';
+      this.searchResults = 'Searching... Please wait';
+      const place = await getPlace(this.inpPlace);
+      const hotels = await getHotels(place);
+      this.searchResults = `Results for "${this.inpPlace}":`;
+      this.hotels = hotels;
+      console.log(this.hotels);
+      console.log(this.hotels[0].ratePlan.price.current);
     },
   },
 
   asyncData() {},
-}
+};
 </script>
 
 /* ****************** STYLES ********************* */

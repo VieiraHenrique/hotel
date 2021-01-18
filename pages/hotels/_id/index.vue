@@ -16,6 +16,7 @@
           src="~/assets/img/fontawesome/star.png"
           alt="star"
           class="stars"
+          :key="hotel.id"
           v-for="(n, i) in hotel.propertyDescription.starRating"
         />
 
@@ -40,13 +41,27 @@
           </span>
           per night
         </h2>
+        <p>
+          From: <span> {{ checkIn }} </span> to: <span> {{ checkOut }} </span>
+        </p>
+        <p>
+          Total nights : <span>{{ totalDays }}</span>
+        </p>
+        <p>
+          Total price : <span>{{ totalPrice }} € VAT included</span>
+        </p>
       </div>
     </div>
 
     <div class="specific-pictures">
       <!-- <h2>{{ loadingPic }}</h2> -->
       <!-- <img v-for="pic in correctPics" :src="pic" alt="picture" /> -->
-      <a v-for="(n, i) in 8" :href="correctPics[i]" target="blank">
+      <a
+        v-for="(n, i) in 8"
+        :href="correctPics[i]"
+        :key="correctPics[i]"
+        target="blank"
+      >
         <img :src="correctPics[i]" alt="picture" />
       </a>
     </div>
@@ -56,7 +71,7 @@
 /* ****************** SCRIPT ********************* */
 
 <script>
-import axios from 'axios'
+import axios from 'axios';
 
 const getOneHotel = async (myID) => {
   const options = {
@@ -66,18 +81,18 @@ const getOneHotel = async (myID) => {
       id: myID,
       locale: 'en_US',
       currency: 'EUR',
-      checkOut: '2020-01-15',
-      adults1: '1',
-      checkIn: '2020-01-08',
+      checkOut: localStorage.checkOut,
+      adults1: localStorage.adults,
+      checkIn: localStorage.checkIn,
     },
     headers: {
       'x-rapidapi-key': '30f40ac386msh71348525a4a982ap195beajsnb3c226b235e2',
       'x-rapidapi-host': 'hotels4.p.rapidapi.com',
     },
-  }
-  const res = await axios.request(options)
-  return res.data.data.body
-}
+  };
+  const res = await axios.request(options);
+  return res.data.data.body;
+};
 
 const getPics = async (myID) => {
   const options = {
@@ -88,9 +103,23 @@ const getPics = async (myID) => {
       'x-rapidapi-key': '30f40ac386msh71348525a4a982ap195beajsnb3c226b235e2',
       'x-rapidapi-host': 'hotels4.p.rapidapi.com',
     },
-  }
-  const res = await axios.request(options)
-  return res.data.hotelImages
+  };
+  const res = await axios.request(options);
+  return res.data.hotelImages;
+};
+
+function datediff(first, second) {
+  let a = new Date(first);
+  let b = new Date(second);
+  console.log(a);
+
+  a = a.getTime();
+  b = b.getTime();
+  console.log(a);
+
+  let days = Math.round((b - a) / (1000 * 60 * 60 * 24));
+  localStorage.days = days;
+  return days;
 }
 
 export default {
@@ -99,20 +128,29 @@ export default {
   data() {
     return {
       loadingPic: 'Loading pictures...',
-    }
+      checkIn: localStorage.checkIn,
+      checkOut: localStorage.checkOut,
+      totalDays: datediff(localStorage.checkIn, localStorage.checkOut),
+      adults: localStorage.adults,
+      totalPrice: localStorage.totalPrice,
+    };
   },
   async asyncData(context) {
-    const hotel = await getOneHotel(context.params.id)
-    const pics = await getPics(context.params.id)
+    const hotel = await getOneHotel(context.params.id);
+    console.log(hotel);
+    localStorage.price =
+      hotel.propertyDescription.featuredPrice.currentPrice.plain;
+    localStorage.totalPrice = localStorage.days * localStorage.price;
+    const pics = await getPics(context.params.id);
     const correctPics = pics.map((elem) => {
-      let str = elem.baseUrl
-      str = str.slice(0, str.length - 11) + '.jpg'
-      return str
-    })
-    return { hotel, correctPics }
+      let str = elem.baseUrl;
+      str = str.slice(0, str.length - 11) + '.jpg';
+      return str;
+    });
+    return { hotel, correctPics };
   },
   methods: {},
-}
+};
 </script>
 
 /* ****************** STYLES ********************* */
@@ -158,6 +196,7 @@ export default {
       list-style: none;
       li {
         color: #000;
+        margin-left: 0;
       }
     }
 
@@ -165,6 +204,7 @@ export default {
       list-style-type: bullet;
 
       li {
+        margin-left: 3rem;
         margin-bottom: 0.5rem;
         color: #aaa;
       }
@@ -204,10 +244,21 @@ export default {
       font-size: 2rem;
 
       span {
-        background: red;
+        background: rgb(214, 39, 39);
         color: #fff;
         padding: 1rem 2rem;
         margin-right: 1rem;
+        display: inline-block;
+      }
+    }
+
+    p {
+      margin-top: 1rem;
+      color: #aaa;
+
+      span {
+        font-size: 2rem;
+        color: #000;
       }
     }
   }
