@@ -231,41 +231,5 @@ export default {
 /* ****************** STYLES ********************* */
 
 <style lang="scss">
-.hotels__banner {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-
-  img {
-    width: 100%;
-    object-fit: cover;
-  }
-}
-
-.search-testimonials {
-  margin: 3rem;
-  display: flex;
-  align-items: flex-start;
-  gap: 3rem;
-}
-
-.results {
-  font-weight: 400;
-  font-size: 1.7rem;
-  text-align: center;
-}
-
-.hotels__grid {
-  margin: 3rem;
-  margin-bottom: 10rem;
-  display: grid;
-  gap: 3rem;
-  grid-template-columns: 1fr 1fr 1fr;
-}
-
-.error {
-  color: red;
-  text-align: center;
-  font-size: 1.8rem;
-}
+@import './hotels.scss';
 </style>

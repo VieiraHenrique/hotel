@@ -1,10 +1,4 @@
-/* TEMPLATE */ /*
-******************************************************************* */ /*
-******************************************************************* */ /*
-******************************************************************* */ /*
-******************************************************************* */ /*
-******************************************************************* */ /*
-******************************************************************* */
+/* TEMPLATE */
 <template>
   <div>
     <div class="specific-wrapper">
@@ -124,8 +118,18 @@
             </div>
           </div>
 
-          <a href="#" class="btn" @click="toggleModal = !toggleModal">Cancel</a>
-          <a href="#" class="btn red" @click="handleProceed">Proceed</a>
+          <div class="modal-bottom">
+            <div class="modal-bottom-btns">
+              <a href="#" class="btn" @click="toggleModal = !toggleModal"
+                >Cancel</a
+              >
+              <a href="#" class="btn red" @click="handleProceed">Proceed</a>
+            </div>
+            <div class="modal-bottom-logo">
+              <p>Powered by</p>
+              <img src="~/assets/img/logoBlack.png" alt="logo" />
+            </div>
+          </div>
         </div>
         <div class="modal-second" v-if="modalSecond">
           <h2>Your order has been completed</h2>
@@ -139,13 +143,7 @@
   </div>
 </template>
 
-/* SCRIPT */ /*
-******************************************************************* */ /*
-******************************************************************* */ /*
-******************************************************************* */ /*
-******************************************************************* */ /*
-******************************************************************* */ /*
-******************************************************************* */
+/* SCRIPT */
 
 <script>
 import axios from 'axios';
@@ -268,240 +266,8 @@ export default {
 };
 </script>
 
-/* STYLE */ /*
-******************************************************************* */ /*
-******************************************************************* */ /*
-******************************************************************* */ /*
-******************************************************************* */ /*
-******************************************************************* */ /*
-******************************************************************* */
+/* STYLE */
 
 <style lang="scss">
-.specific-wrapper {
-  margin: 3rem;
-
-  .btn {
-    background: #349af7;
-    color: #fff;
-    padding: 1rem 2rem;
-    text-decoration: none;
-    display: inline-block;
-    cursor: pointer;
-
-    &:hover {
-      background: #5bb0ff;
-    }
-  }
-
-  .specific-hotel {
-    background: #fff;
-    margin: 3rem 0;
-    padding: 3rem;
-    width: 50rem;
-    box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
-
-    h2 {
-      margin-bottom: 0.5rem;
-      font-weight: 800;
-    }
-    h4 {
-      margin-bottom: 1rem;
-    }
-
-    .stars {
-      width: 3rem;
-      margin-bottom: 2rem;
-    }
-
-    .nobullet {
-      list-style: none;
-      li {
-        color: #000;
-        margin-left: 0;
-      }
-    }
-
-    ul {
-      list-style-type: bullet;
-
-      li {
-        margin-left: 3rem;
-        margin-bottom: 0.5rem;
-        color: #aaa;
-      }
-    }
-  }
-
-  .specific-pictures {
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 3rem;
-    margin-bottom: 10rem;
-
-    img {
-      width: 100%;
-      height: 25rem;
-      object-fit: cover;
-      cursor: pointer;
-      box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
-    }
-  }
-
-  .specific-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 3rem;
-  }
-
-  .specific-price {
-    background: #fff;
-    margin: 3rem 0;
-    padding: 3rem;
-    width: 50%;
-    box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
-
-    h2 {
-      font-size: 1.6rem;
-
-      span {
-        background: #349af7;
-        color: #fff;
-        padding: 1rem 2rem;
-        margin-right: 0.5rem;
-        display: inline-block;
-        font-size: 2rem;
-      }
-    }
-
-    p {
-      margin-top: 1rem;
-      color: #666;
-
-      span {
-        font-size: 1.8rem;
-        color: #000;
-      }
-
-      .vat {
-        font-size: 1.4rem;
-      }
-    }
-    .book {
-      background: rgb(214, 39, 39);
-      color: #fff;
-      padding: 2rem 2rem;
-      cursor: pointer;
-      text-align: center;
-      margin-top: 2rem;
-    }
-  }
-}
-
-.modalBG {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba($color: #000000, $alpha: 0.7);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  .modal {
-    background: #f4f2f2;
-    box-shadow: 0 2px 4px rgba($color: #000000, $alpha: 0.7);
-    padding: 5rem;
-    width: 70rem;
-    border-radius: 0.5rem;
-
-    img {
-      width: 7rem;
-    }
-
-    .btn {
-      background: #c7c0ba;
-      color: #fff;
-      padding: 1rem 2rem;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 3rem;
-    }
-
-    .red {
-      background: #349af7;
-    }
-
-    p {
-      margin: 2rem 0;
-    }
-
-    .modal-row {
-      display: flex;
-      justify-content: space-between;
-      align-items: stretch;
-    }
-
-    .rounded {
-      width: 5rem;
-      border-radius: 50%;
-    }
-
-    .paypal-pictures {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: -2rem;
-    }
-
-    .totalPrice {
-      font-weight: 800;
-    }
-
-    .vat {
-      font-size: 1.3rem;
-    }
-
-    .modal-payment {
-      flex: 1 0 50%;
-      padding: 3rem;
-      background: #fff;
-      box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
-
-      label {
-        display: inline-block;
-        margin-top: 1rem;
-        font-size: 1.4rem;
-        color: #666;
-      }
-
-      input {
-        margin-top: 0.5rem;
-        background: #f4f2f2;
-        width: 100%;
-        border-radius: 10rem;
-        padding: 1rem;
-        border: 1px solid #ccc;
-        font-size: 1.6rem;
-
-        &:focus {
-          outline: none;
-        }
-      }
-    }
-
-    .modal-recap {
-      padding: 3rem;
-      background: #fff;
-      box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
-
-      span {
-        font-size: 1.4rem;
-        font-weight: 800;
-      }
-    }
-  }
-}
+@import './_id.scss';
 </style>

@@ -32,102 +32,14 @@ export default {
   props: [],
   components: {},
   data() {
-    return {}
+    return {};
   },
   methods: {},
-}
+};
 </script>
 
 /* ****************** STYLES ********************* */
 
 <style lang="scss">
-.header {
-  background: #fff;
-  height: 7rem;
-  border-bottom: 1px solid #ccc;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 3rem;
-
-  &__logo {
-    width: 4rem;
-
-    img {
-      width: 4rem;
-    }
-  }
-
-  &__title {
-    h1 {
-      font-family: 'Satisfy', sans-serif;
-      font-weight: 400;
-      font-size: 3.2rem;
-      letter-spacing: 1.5px;
-      color: #444;
-      padding: 2.5rem;
-      padding-left: 10rem;
-    }
-  }
-
-  &__search {
-    flex: 0 0 40%;
-    form {
-      display: flex;
-      align-items: center;
-      input {
-        flex: 1;
-        background: #f4f2f2;
-        border-radius: 20rem;
-        padding: 1rem 4.5rem 1rem 3rem;
-        border: 1px solid #ccc;
-
-        &:focus {
-          /* border: none; */
-          outline: none;
-        }
-      }
-      button {
-        border: none;
-        background: transparent;
-        margin-left: -3.5rem;
-        img {
-          width: 2rem;
-          cursor: pointer;
-        }
-        &:focus {
-          outline: none;
-        }
-      }
-    }
-  }
-
-  &__nav {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-
-    img {
-      width: 2rem;
-      color: #174261;
-      cursor: pointer;
-    }
-
-    &--user {
-      cursor: pointer;
-      display: flex;
-      gap: 0.5rem;
-      align-items: center;
-      img {
-        width: 3rem;
-        border-radius: 50%;
-      }
-
-      span {
-        display: inline-block;
-        font-size: 1.2rem;
-      }
-    }
-  }
-}
+@import './Header.scss';
 </style>

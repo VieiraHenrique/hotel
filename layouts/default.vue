@@ -19,17 +19,17 @@
 /* ****************** SCRIPT ********************* */
 
 <script>
-import Header from '@/components/Header.vue'
-import Sidebar from '@/components/Sidebar.vue'
+import Header from '@/components/Header.vue';
+import Sidebar from '@/components/Sidebar.vue';
 
 export default {
   props: [],
   components: { Header, Sidebar },
   data() {
-    return {}
+    return {};
   },
   methods: {},
-}
+};
 </script>
 
 /*
@@ -37,76 +37,5 @@ export default {
 */ /* ****************** STYLES ********************* */
 
 <style lang="scss">
-$gray-light: #f4f2f2;
-
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Satisfy&display=swap');
-
-// VARIABLES
-
-$main-blue: #349af7;
-$sidebar: #444;
-$bg: #349af7;
-$rating: #000;
-
-// CSS
-
-html {
-  font-size: 62.5%;
-  scroll-behavior: smooth;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-weight: 400;
-}
-
-body {
-  font-family: 'Rubik', sans-serif;
-  font-size: 1.6rem;
-  /* background: radial-gradient(#536369be, #1d2931c5),
-    url(https://images.pexels.com/photos/3293148/pexels-photo-3293148.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260); */
-  /* background: radial-gradient(#346e97, #174261); */
-  background: #349af7;
-  background: #eaeaea;
-  /* background: #444; */
-  background-size: cover;
-  background-position: center;
-}
-
-.wrapper {
-  position: relative;
-  max-width: 120rem;
-  margin: 5rem auto;
-  background: $gray-light;
-  overflow: hidden;
-  border-radius: 1rem;
-  box-shadow: 0 1rem 2rem rgba($color: #000000, $alpha: 0.3);
-}
-
-.powered {
-  position: absolute;
-  text-align: center;
-  right: 2rem;
-  bottom: 2rem;
-  font-size: 1.3rem;
-
-  img {
-    width: 15rem;
-  }
-}
-
-.content {
-  display: flex;
-}
-
-.sidebar {
-  flex: 0 0 18%;
-}
-
-.main {
-  flex: 1;
-}
+@import './default.scss';
 </style>

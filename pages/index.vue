@@ -27,92 +27,11 @@
 <script>
 export default {
   layout: 'login',
-}
+};
 </script>
 
 /* ****************** STYLES ********************* */
 
 <style lang="scss">
-.login {
-  background: #fff;
-  width: 80rem;
-  border-radius: 1rem;
-
-  .login-cover {
-    width: 100%;
-    height: 20rem;
-    object-fit: cover;
-    border-top-left-radius: 1rem;
-    border-top-right-radius: 1rem;
-    box-shadow: 0 5px 10px rgba($color: #000000, $alpha: 0.2);
-  }
-
-  .login-text {
-    text-align: center;
-    min-height: 50rem;
-    padding: 3rem;
-
-    img {
-      margin-top: 1rem;
-      width: 17rem;
-    }
-
-    h2 {
-      font-family: 'Satisfy', serif;
-      font-size: 3.8rem;
-    }
-
-    p {
-      margin-bottom: 1rem;
-      color: #777;
-    }
-
-    .login-powered {
-      margin: 0;
-      margin-top: 1rem;
-    }
-
-    hr {
-      width: 50%;
-      margin: 2rem auto;
-    }
-
-    .login-user {
-      width: 5rem;
-      border-radius: 50%;
-    }
-
-    a {
-      margin: 0.5rem;
-      background: #349af7;
-      color: #fff;
-      text-decoration: none;
-      padding: 1rem 2rem;
-      display: inline-block;
-
-      &:hover {
-        background: #64aef3;
-      }
-    }
-
-    .orange {
-      background: #1e65a8;
-
-      &:hover {
-        background: #1f77ca;
-      }
-    }
-
-    .normal-link {
-      all: unset;
-      margin-top: 3rem;
-      color: #349af7;
-      cursor: pointer;
-
-      &:hover {
-        background: transparent;
-      }
-    }
-  }
-}
+@import './login.scss';
 </style>
