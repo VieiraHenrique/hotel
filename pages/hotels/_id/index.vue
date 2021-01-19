@@ -1,5 +1,10 @@
-/* ****************** TEMPLATE ********************* */
-
+/* TEMPLATE */ /*
+******************************************************************* */ /*
+******************************************************************* */ /*
+******************************************************************* */ /*
+******************************************************************* */ /*
+******************************************************************* */ /*
+******************************************************************* */
 <template>
   <div>
     <div class="specific-wrapper">
@@ -17,7 +22,6 @@
             src="~/assets/img/fontawesome/star.png"
             alt="star"
             class="stars"
-            :key="hotel.id"
             v-for="(n, i) in hotel.propertyDescription.starRating"
           />
 
@@ -31,9 +35,6 @@
           <ul v-for="amen in hotel.amenities[0].listItems[1].listItems">
             <li>{{ amen }}</li>
           </ul>
-          <!-- <ul v-for="amen in hotel.amenities[0].listItems[2].listItems">
-          <li>{{ amen }}</li>
-        </ul> -->
         </div>
         <div class="specific-price">
           <h2>
@@ -58,9 +59,9 @@
         </div>
       </div>
 
+      <!-- ************** IMAGE GALLERY ***************** -->
+
       <div class="specific-pictures">
-        <!-- <h2>{{ loadingPic }}</h2> -->
-        <!-- <img v-for="pic in correctPics" :src="pic" alt="picture" /> -->
         <a
           v-for="(n, i) in 8"
           :href="correctPics[i]"
@@ -71,43 +72,85 @@
         </a>
       </div>
     </div>
+
+    <!-- ****************MODAL******************** -->
+
     <div v-if="toggleModal" class="modalBG">
       <div class="modal">
-        <div class="modal-title">
-          <h2>Great, Henrique ! Just to confirm...</h2>
-          <p>Pay with registered PayPal account</p>
-        </div>
-
-        <div class="modal-row">
-          <img src="~/assets/img/paypal.png" alt="" />
-
-          <div class="modal-recap">
+        <div class="modal-first" v-if="modalFirst">
+          <div class="modal-title">
+            <h2>Great, Henrique ! Let's wrap it up !</h2>
             <p>
-              From: <span> {{ checkIn }} </span> to:
-              <span> {{ checkOut }} </span>
-            </p>
-            <p>
-              Total nights : <span>{{ totalDays }}</span>
-            </p>
-            <p class="totalPrice">
-              Total price : <span class="totalPrice">{{ totalPrice }} € </span
-              ><span class="vat">VAT included</span>
+              Confirm the below information. <br />
+              If you are booking for someone else, insert his/her name and
+              email.
             </p>
           </div>
-        </div>
 
-        <a href="#" class="btn" @click="toggleModal = !toggleModal">Cancel</a>
-        <a href="#" class="btn red">Proceed</a>
+          <div class="modal-row">
+            <div class="modal-payment">
+              <label for="name">Name of the guest</label>
+              <input
+                v-model="guestName"
+                type="text"
+                id="name"
+                value="Henrique Vieira"
+              />
+              <label for="name">Email of the guest</label>
+              <input
+                v-model="guestMail"
+                type="text"
+                id="name"
+                value="me@henriquevieira.com"
+              />
+              <label for="name">Special request</label>
+              <input v-model="comments" type="text" id="name" />
+            </div>
+
+            <div class="modal-recap">
+              <p>
+                From: <br />
+                <span> {{ checkIn }} </span> <br />
+                to: <br />
+                <span> {{ checkOut }} </span>
+              </p>
+              <p>
+                Total nights : <span>{{ totalDays }}</span>
+              </p>
+              <p class="totalPrice">
+                Total price : <span class="totalPrice">{{ totalPrice }} € </span
+                ><span class="vat">VAT included</span>
+              </p>
+            </div>
+          </div>
+
+          <a href="#" class="btn" @click="toggleModal = !toggleModal">Cancel</a>
+          <a href="#" class="btn red" @click="handleProceed">Proceed</a>
+        </div>
+        <div class="modal-second" v-if="modalSecond">
+          <h2>Your order has been completed</h2>
+          <p>An email has been sent to {{ guestMail }} with all the details</p>
+          <nuxt-link class="btn red" to="/hotels"
+            >Get back to main page</nuxt-link
+          >
+        </div>
       </div>
     </div>
   </div>
 </template>
 
-/* ****************** SCRIPT ********************* */
+/* SCRIPT */ /*
+******************************************************************* */ /*
+******************************************************************* */ /*
+******************************************************************* */ /*
+******************************************************************* */ /*
+******************************************************************* */ /*
+******************************************************************* */
 
 <script>
 import axios from 'axios';
 
+/* Function to fetch the details of one hot. Must provide the hotel ID as argument. Returns data.body from the api */
 const getOneHotel = async (myID) => {
   const options = {
     method: 'GET',
@@ -129,6 +172,7 @@ const getOneHotel = async (myID) => {
   return res.data.data.body;
 };
 
+/* Function to get the pictures from a specific hotel. Must provide the hotel ID as argument. Returns data.hotelImages from the api (the main array of urls) */
 const getPics = async (myID) => {
   const options = {
     method: 'GET',
@@ -143,15 +187,18 @@ const getPics = async (myID) => {
   return res.data.hotelImages;
 };
 
+/* Function to get how many days there are between the two inputs. 'first' and 'second' are dates in a string with the format YYYY-MM-DD */
+
 function datediff(first, second) {
+  /* Transform the strings in an actual Date object */
   let a = new Date(first);
   let b = new Date(second);
-  console.log(a);
 
+  /* Converts dates to milliseconds */
   a = a.getTime();
   b = b.getTime();
-  console.log(a);
 
+  /* Calcultates de differente in milliseconds and divide by the quantity of millisenconds in a day */
   let days = Math.round((b - a) / (1000 * 60 * 60 * 24));
 
   return days;
@@ -162,6 +209,7 @@ export default {
   components: {},
   data() {
     return {
+      /* Message from */
       loadingPic: 'Loading pictures...',
       checkIn: localStorage.checkIn,
       checkOut: localStorage.checkOut,
@@ -169,10 +217,16 @@ export default {
       adults: localStorage.adults,
       totalPrice: localStorage.totalPrice,
       toggleModal: false,
+      modalFirst: true,
+      modalSecond: false,
+      guestName: 'Henrique Vieira',
+      guestMail: 'me@henriquevieira.com',
+      comments: '',
     };
   },
   async asyncData(context) {
     const hotel = await getOneHotel(context.params.id);
+    localStorage.hotelID = context.params.id;
     console.log(hotel);
     localStorage.days = datediff(localStorage.checkIn, localStorage.checkOut);
     localStorage.price =
@@ -186,11 +240,41 @@ export default {
     });
     return { hotel, correctPics };
   },
-  methods: {},
+  methods: {
+    handleProceed() {
+      const options = {
+        method: 'post',
+        url:
+          'https://7ti5e2qscg.execute-api.us-east-1.amazonaws.com/production/',
+        data: {
+          hotel_name: this.hotel.propertyDescription.name,
+          hotel_id: localStorage.hotelID,
+          room_type: 'Standard Room',
+          persons: localStorage.adults,
+          booking_date_from: localStorage.checkIn,
+          booking_date_until: localStorage.checkOut,
+          comments: this.comments,
+          customer_name: this.guestName,
+          customer_email: this.guestMail,
+        },
+      };
+
+      axios(options);
+
+      this.modalFirst = false;
+      this.modalSecond = true;
+    },
+  },
 };
 </script>
 
-/* ****************** STYLES ********************* */
+/* STYLE */ /*
+******************************************************************* */ /*
+******************************************************************* */ /*
+******************************************************************* */ /*
+******************************************************************* */ /*
+******************************************************************* */ /*
+******************************************************************* */
 
 <style lang="scss">
 .specific-wrapper {
@@ -260,6 +344,7 @@ export default {
       height: 25rem;
       object-fit: cover;
       cursor: pointer;
+      box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
     }
   }
 
@@ -328,8 +413,8 @@ export default {
   .modal {
     background: #f4f2f2;
     box-shadow: 0 2px 4px rgba($color: #000000, $alpha: 0.7);
-    padding: 3rem;
-    width: 60rem;
+    padding: 5rem;
+    width: 70rem;
     border-radius: 0.5rem;
 
     img {
@@ -337,15 +422,16 @@ export default {
     }
 
     .btn {
-      background: #349af7;
+      background: #c7c0ba;
       color: #fff;
       padding: 1rem 2rem;
       text-decoration: none;
       display: inline-block;
+      margin-top: 3rem;
     }
 
     .red {
-      background: rgb(214, 39, 39);
+      background: #349af7;
     }
 
     p {
@@ -355,7 +441,19 @@ export default {
     .modal-row {
       display: flex;
       justify-content: space-between;
-      align-items: flex-start;
+      align-items: stretch;
+    }
+
+    .rounded {
+      width: 5rem;
+      border-radius: 50%;
+    }
+
+    .paypal-pictures {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: -2rem;
     }
 
     .totalPrice {
@@ -364,6 +462,45 @@ export default {
 
     .vat {
       font-size: 1.3rem;
+    }
+
+    .modal-payment {
+      flex: 1 0 50%;
+      padding: 3rem;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
+
+      label {
+        display: inline-block;
+        margin-top: 1rem;
+        font-size: 1.4rem;
+        color: #666;
+      }
+
+      input {
+        margin-top: 0.5rem;
+        background: #f4f2f2;
+        width: 100%;
+        border-radius: 10rem;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        font-size: 1.6rem;
+
+        &:focus {
+          outline: none;
+        }
+      }
+    }
+
+    .modal-recap {
+      padding: 3rem;
+      background: #fff;
+      box-shadow: 0 1px 2px rgba($color: #000000, $alpha: 0.3);
+
+      span {
+        font-size: 1.4rem;
+        font-weight: 800;
+      }
     }
   }
 }
