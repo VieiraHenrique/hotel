@@ -1,4 +1,5 @@
-/* TEMPLATE */
+/* TEMPLATE */ /* ************************************************************
+*/
 <template>
   <div>
     <div class="specific-wrapper">
@@ -12,6 +13,7 @@
             {{ hotel.propertyDescription.address.countryName }}
           </h4>
 
+          <!-- Hotel stars -->
           <img
             src="~/assets/img/fontawesome/star.png"
             alt="star"
@@ -19,6 +21,7 @@
             v-for="(n, i) in hotel.propertyDescription.starRating"
           />
 
+          <!-- Listing of amenities -->
           <ul class="nobullet">
             <li>{{ hotel.propertyDescription.freebies[0] }}</li>
           </ul>
@@ -30,6 +33,8 @@
             <li>{{ amen }}</li>
           </ul>
         </div>
+
+        <!-- Box with price per night, stay dates and total price -->
         <div class="specific-price">
           <h2>
             <span>
@@ -39,6 +44,7 @@
             </span>
             per night
           </h2>
+
           <p>
             From: <span> {{ checkIn }} </span> to: <span> {{ checkOut }} </span>
           </p>
@@ -66,7 +72,7 @@
       </div>
     </div>
 
-    <!-- ****************MODAL******************** -->
+    <!-- ****************MODAL to checkout ******************** -->
 
     <div v-if="toggleModal" class="modalBG">
       <div class="modal">
@@ -79,6 +85,8 @@
               email.
             </p>
           </div>
+
+          <!-- Form of the modal to insert name, email and special request -->
 
           <div class="modal-row">
             <div class="modal-payment">
@@ -100,6 +108,8 @@
               <input v-model="comments" type="text" id="name" />
             </div>
 
+            <!-- Recap of the reservation info in the modal -->
+
             <div class="modal-recap">
               <p>
                 From: <br />
@@ -117,6 +127,8 @@
             </div>
           </div>
 
+          <!-- Footer of the modal -->
+
           <div class="modal-bottom">
             <div class="modal-bottom-btns">
               <a href="#" class="btn" @click="toggleModal = !toggleModal"
@@ -130,6 +142,9 @@
             </div>
           </div>
         </div>
+
+        <!-- Modal when the transaction has been completed -->
+
         <div class="modal-second" v-if="modalSecond">
           <h2>Your order has been completed</h2>
           <p>An email has been sent to {{ guestMail }} with all the details</p>
@@ -139,6 +154,8 @@
         </div>
       </div>
     </div>
+
+    <!-- Modal for pictures -->
 
     <div v-if="picModalOpen" class="modalPicture-bg">
       <div class="modalPicture">
@@ -154,12 +171,12 @@
   </div>
 </template>
 
-/* SCRIPT */
+/* ************************************************************ */ /* SCRIPT */
 
 <script>
 import axios from 'axios';
 
-/* Function to fetch the details of one hot. Must provide the hotel ID as argument. Returns data.body from the api */
+/* Function to fetch the details of one hotel. Must provide the hotel ID as argument. Returns data.body from the api */
 const getOneHotel = async (myID) => {
   const options = {
     method: 'GET',
@@ -213,12 +230,13 @@ function datediff(first, second) {
   return days;
 }
 
+/* Default export from the component */
 export default {
   props: [],
   components: {},
   data() {
     return {
-      /* Message from */
+      /* VARIABLES FOT THIS COMPONENTS (ex: checkin date, checkout date, number of adults...) */
       loadingPic: 'Loading pictures...',
       checkIn: localStorage.checkIn,
       checkOut: localStorage.checkOut,
@@ -236,13 +254,23 @@ export default {
     };
   },
   async asyncData(context) {
+    // Using hotel id to invoke getOneHotel function and get specific hotel data
+
     const hotel = await getOneHotel(context.params.id);
+
+    // Save different variables to localstorage
+
     localStorage.hotelID = context.params.id;
-    console.log(hotel);
+
     localStorage.days = datediff(localStorage.checkIn, localStorage.checkOut);
+
     localStorage.price =
       hotel.propertyDescription.featuredPrice.currentPrice.plain;
+
+    // Calcultates total price of stay and save it to the localStorage
+
     localStorage.totalPrice = localStorage.days * localStorage.price;
+
     const pics = await getPics(context.params.id);
     const correctPics = pics.map((elem) => {
       let str = elem.baseUrl;
@@ -252,6 +280,7 @@ export default {
     return { hotel, correctPics };
   },
   methods: {
+    /* Method to handle the transaction final step. POST data to remote api*/
     handleProceed() {
       const options = {
         method: 'post',
@@ -283,7 +312,8 @@ export default {
 };
 </script>
 
-/* STYLE */
+/* ************************************************************ */ /* STYLE
+CSS*/
 
 <style lang="scss">
 @import './_id.scss';
