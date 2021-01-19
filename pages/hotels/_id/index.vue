@@ -58,9 +58,8 @@
       <div class="specific-pictures">
         <a
           v-for="(n, i) in 8"
-          :href="correctPics[i]"
           :key="correctPics[i]"
-          target="blank"
+          @click="openPicModal(correctPics[i])"
         >
           <img :src="correctPics[i]" alt="picture" />
         </a>
@@ -138,6 +137,18 @@
             >Get back to main page</nuxt-link
           >
         </div>
+      </div>
+    </div>
+
+    <div v-if="picModalOpen" class="modalPicture-bg">
+      <div class="modalPicture">
+        <img
+          class="close"
+          src="~/assets/img/fontawesome/close.png"
+          alt="close"
+          @click="picModalOpen = !picModalOpen"
+        />
+        <img class="mainImg" :src="picModalSrc" alt="" />
       </div>
     </div>
   </div>
@@ -220,6 +231,8 @@ export default {
       guestName: 'Henrique Vieira',
       guestMail: 'me@henriquevieira.com',
       comments: '',
+      picModalOpen: false,
+      picModalSrc: '',
     };
   },
   async asyncData(context) {
@@ -261,6 +274,10 @@ export default {
 
       this.modalFirst = false;
       this.modalSecond = true;
+    },
+    openPicModal(src) {
+      this.picModalOpen = !this.picModalOpen;
+      this.picModalSrc = src;
     },
   },
 };

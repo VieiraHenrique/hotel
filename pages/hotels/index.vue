@@ -111,8 +111,7 @@ import HotelCard from '../../components/HotelCard.vue';
 import Search from '../../components/Search.vue';
 import Testimonials from '../../components/Testimonials.vue';
 
-const getPlace = async (myQuery) => {};
-
+/* Function to fetch a list of hotels from a provided place id */
 const getHotels = async (placeID) => {
   const options = {
     method: 'GET',
@@ -140,6 +139,7 @@ const getHotels = async (placeID) => {
   } catch (err) {}
 };
 
+/* Default export from the component */
 export default {
   components: { Search, Testimonials, HotelCard },
   data() {
@@ -154,6 +154,7 @@ export default {
       error2: '',
     };
   },
+  /* Sync inputs with local storage variables */
   watch: {
     inpPlace(inpPlace) {
       localStorage.city = inpPlace;
@@ -168,6 +169,7 @@ export default {
       localStorage.adults = adults;
     },
   },
+  /* Sync inputs with local storage variables when the page is loaded */
   mounted() {
     if (localStorage.city) {
       this.inpPlace = localStorage.city;
@@ -183,6 +185,7 @@ export default {
     }
   },
   methods: {
+    /* Method to fetch de placeID from the city the user provided  */
     getPlace: async function (myQuery) {
       const options = {
         method: 'GET',
@@ -202,6 +205,7 @@ export default {
           'Error retrieving information. Make sure the city exists and is written in English';
       }
     },
+    /* Function that handles the form submit. It checks to see if the values are there - send a message if they are not - and invoke the functions getPlace and getHotels*/
     searchHotels: async function (e) {
       e.preventDefault();
 
@@ -221,8 +225,6 @@ export default {
       const hotels = await getHotels(place);
       this.searchResults = `Results for "${localStorage.city}":`;
       this.hotels = hotels;
-      console.log(this.hotels);
-      console.log(this.hotels[0].ratePlan.price.current);
     },
   },
 };

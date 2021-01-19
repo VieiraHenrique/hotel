@@ -26,6 +26,7 @@
 
 <script>
 export default {
+  /* Use the "login.vue" layout for this route */
   layout: 'login',
 };
 </script>
